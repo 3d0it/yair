@@ -7,4 +7,5 @@ edition = "2021"
 
 [dependencies]
 claims = "0.7.1"
+clap = { version = "4.3.4", features = ["derive", "wrap_help"] }
 image = "0.24.6"

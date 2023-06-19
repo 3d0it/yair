@@ -1,47 +1,16 @@
-#[derive(Debug)]
+use clap::Parser;
+
+#[derive(Parser, Default, Debug)]
+#[command(name = "yair")]
+#[command(author = "3d0")]
+#[command(about = "Yet Another Image Resizer")]
 pub struct Config {
+    /// Path of the image to resize
+    #[arg(short, long)]
     pub image_path: String,
+
+    /// Resize percentage
+    #[arg(short, long)]
+    #[arg(value_parser = clap::value_parser!(u32).range(1..100))]
     pub percentage: u32,
-}
-
-impl Config {
-    pub fn build(args: &[String]) -> Result<Config, &'static str> {
-        if args.len() < 3 {
-            return Err("Not enough arguments");
-        }
-
-        let image_path = &args[1];
-        let percentage = &args[2];
-
-        let percentage = match percentage.parse::<u32>() {
-            Ok(n) if n > 100 => {
-                return Err("Percentage must be lesser then 100");
-            }
-            Ok(n) => n,
-            Err(_) => return Err("Percentage must be a positive number"),
-        };
-
-        Ok(Config {
-            image_path: image_path.to_string(),
-            percentage,
-        })
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use claims::assert_err;
-
-    #[test]
-    fn build_wrong_percentage() {
-        let args = vec![String::from("bears.jpg"), String::from("xxx")];
-        assert_err!(Config::build(&args));
-    }
-
-    #[test]
-    fn build_negative_percentage() {
-        let args = vec![String::from("bears.jpg"), String::from("-10")];
-        assert_err!(Config::build(&args));
-    }
 }

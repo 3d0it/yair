@@ -7,13 +7,13 @@ Yet Another Image Resizer is a super simple image resizing tool, developed as pa
 To use the Yet Another Image Resizer tool, follow the syntax below:
 
 ```
-yair myimage.extension percentage
+yair.exe --image-path <IMAGE_PATH> --percentage <PERCENTAGE>
 ```
 
 For example, to create a resized version of the image "bear-combat.jpg" that is 25% of the original size, use the following command:
 
 ```
-yair .\sample\bear-combat.jpg 25
+yair.exe --image-path .\sample\bear-combat.jpg --percentage 25
 ```
 
 ## Note
